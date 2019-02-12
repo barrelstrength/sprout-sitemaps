@@ -1,0 +1,14 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: "Plugin Name"|t('sprout-sitemaps'),
+    instructions: "Intuitive, human-readable plugin name for the end user."|t('sprout-sitemaps'),
+    id: 'pluginNameOverride',
+    name: 'pluginNameOverride',
+    value: settings.pluginNameOverride,
+    autofocus: true,
+    first: true,
+    errors: ''
+}) }}
+
+{% do view.registerAssetBundle("barrelstrength\\sproutsitemaps\\web\\assets\\general\\GeneralAsset") %}

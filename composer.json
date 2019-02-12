@@ -1,0 +1,45 @@
+{
+  "name": "barrelstrength/sprout-sitemaps",
+  "description": "Generate comprehensive, multi-lingual XML sitemaps",
+  "version": "1.0.0-beta.1",
+  "type": "craft-plugin",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "seo",
+    "sprout seo"
+  ],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Barrel Strength",
+      "homepage": "https://www.barrelstrengthdesign.com/"
+    }
+  ],
+  "support": {
+    "email": "sprout@barrelstrengthdesign.com",
+    "issues": "https://github.com/barrelstrength/sprout-seo/issues?state=open",
+    "source": "https://github.com/barrelstrength/sprout-seo",
+    "docs": "https://sprout.barrelstrengthdesign.com/craft-plugins/seo/docs"
+  },
+  "require": {
+    "craftcms/cms": "^3.1.0",
+    "barrelstrength/sprout-base": "^4.0.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "barrelstrength\\sproutsitemaps\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Sprout Sitemaps",
+    "handle": "sprout-sitemaps",
+    "developer": "Barrel Strength",
+    "developerUrl": "https://barrelstrengthdesign.com",
+    "documentationUrl": "https://sprout.barrelstrengthdesign.com/craft-plugins/sitemap",
+    "changelogUrl": "https://raw.githubusercontent.com/BarrelStrength/sprout-sitemapss/master/CHANGELOG.md",
+    "downloadUrl": "https://github.com/BarrelStrength/sprout-sitemaps/archive/master.zip",
+    "class": "barrelstrength\\sproutsitemaps\\SproutSitemaps"
+  }
+}
