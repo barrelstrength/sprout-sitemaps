@@ -146,7 +146,7 @@ class XmlSitemap extends Component
 
             foreach ($currentSitemapSites as $site) {
 
-                $globalMetadata = SproutSitemaps::$app->globalMetadata->getGlobalMetadata($site);
+                #$globalMetadata = SproutSitemaps::$app->globalMetadata->getGlobalMetadata($site);
 
                 $elementMetadataFieldHandle = null;
                 $elements = [];
@@ -179,7 +179,8 @@ class XmlSitemap extends Component
 
                 // Add each Element with a URL to the Sitemap
                 foreach ($elements as $element) {
-
+                    // @todo figure out how handle this code
+                    /*
                     if ($elementMetadataFieldHandle === null) {
                         $elementMetadataFieldHandle = SproutSitemaps::$app->elementMetadata->getElementMetadataFieldHandle($element);
                     }
@@ -205,6 +206,7 @@ class XmlSitemap extends Component
                         ]));
                         continue;
                     }
+                    * */
 
                     $canonicalOverride = $metadata['canonical'] ?? null;
 
