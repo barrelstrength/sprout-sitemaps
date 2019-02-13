@@ -16,7 +16,7 @@ class GeneralAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = '@barrelstrength/sproutseo/web/assets/general/dist';
+        $this->sourcePath = '@barrelstrength/sproutsitemaps/web/assets/general/dist';
 
         $this->js = [
             'js/general.js'

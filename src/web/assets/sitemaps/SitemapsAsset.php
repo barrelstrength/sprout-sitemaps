@@ -17,7 +17,7 @@ class SitemapsAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = '@barrelstrength/sproutseo/web/assets/sitemaps/dist';
+        $this->sourcePath = '@barrelstrength/sproutsitemaps/web/assets/sitemaps/dist';
 
         $this->depends = [
             BaseAsset::class

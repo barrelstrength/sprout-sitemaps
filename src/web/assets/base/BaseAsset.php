@@ -17,7 +17,7 @@ class BaseAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = '@barrelstrength/sproutseo/web/assets/base/dist';
+        $this->sourcePath = '@barrelstrength/sproutsitemaps/web/assets/base/dist';
 
         $this->depends = [
             CpAsset::class,
