@@ -307,31 +307,6 @@ class Sitemaps extends Component
         return $key;
     }
 
-    public function getTransforms()
-    {
-        $options = [
-            '' => Craft::t('sprout-sitemaps', 'None')
-        ];
-
-        $options[] = ['optgroup' => Craft::t('sprout-sitemaps', 'Default Transforms')];
-
-        $options['sproutSeo-socialSquare'] = Craft::t('sprout-sitemaps', 'Square – 400x400');
-        $options['sproutSeo-ogRectangle'] = Craft::t('sprout-sitemaps', 'Rectangle – 1200x630 – Open Graph');
-        $options['sproutSeo-twitterRectangle'] = Craft::t('sprout-sitemaps', 'Rectangle – 1024x512 – Twitter Card');
-
-        $transforms = Craft::$app->assetTransforms->getAllTransforms();
-
-        if (count($transforms)) {
-            $options[] = ['optgroup' => Craft::t('sprout-sitemaps', 'Custom Transforms')];
-
-            foreach ($transforms as $transform) {
-                $options[$transform->handle] = $transform->name;
-            }
-        }
-
-        return $options;
-    }
-
     /**
      * Get all registered Element Groups
      *
