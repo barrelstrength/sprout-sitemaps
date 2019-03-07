@@ -22,11 +22,6 @@ class App extends Component
     public $xmlSitemap;
 
     /**
-     * @var UrlEnabledSections
-     */
-    public $urlEnabledSections;
-
-    /**
      * @var Settings
      */
     public $settings;
@@ -35,7 +30,6 @@ class App extends Component
     {;
         $this->sitemaps = new Sitemaps();
         $this->xmlSitemap = new XmlSitemap();
-        $this->urlEnabledSections = new UrlEnabledSections();
         $this->settings = new Settings();
     }
 }

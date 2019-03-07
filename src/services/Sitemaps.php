@@ -7,10 +7,11 @@
 
 namespace barrelstrength\sproutsitemaps\services;
 
-use barrelstrength\sproutsitemaps\base\UrlEnabledSectionType;
+use barrelstrength\sproutbaseuris\SproutBaseUris;
+use barrelstrength\sproutbaseuris\base\UrlEnabledSectionType;
 use barrelstrength\sproutsitemaps\models\SitemapSection;
-use barrelstrength\sproutsitemaps\models\UrlEnabledSection;
-use barrelstrength\sproutsitemaps\sectiontypes\NoSection;
+use barrelstrength\sproutbaseuris\models\UrlEnabledSection;
+use barrelstrength\sproutbaseuris\sectiontypes\NoSection;
 use barrelstrength\sproutsitemaps\SproutSitemaps;
 use barrelstrength\sproutsitemaps\models\Settings as PluginSettings;
 use craft\base\Element;
@@ -337,7 +338,7 @@ class Sitemaps extends Component
             return null;
         }
 
-        $registeredUrlEnabledSectionsTypes = SproutSitemaps::$app->urlEnabledSections->getRegisteredUrlEnabledSectionsEvent();
+        $registeredUrlEnabledSectionsTypes = SproutBaseUris::$app->urlEnabledSections->getRegisteredUrlEnabledSectionsEvent();
 
         foreach ($registeredUrlEnabledSectionsTypes as $urlEnabledSectionType) {
             /**
@@ -433,28 +434,5 @@ class Sitemaps extends Component
         }
 
         return [];
-    }
-
-    /**
-     * Get the active URL-Enabled Section Type via the Element Type
-     *
-     * @param $elementType
-     *
-     * @return UrlEnabledSectionType|null
-     * @throws \craft\errors\SiteNotFoundException
-     */
-    public function getUrlEnabledSectionTypeByElementType($elementType)
-    {
-        $currentSite = Craft::$app->sites->getCurrentSite();
-
-        $this->prepareUrlEnabledSectionTypesForSitemaps($currentSite->id);
-
-        foreach ($this->urlEnabledSectionTypes as $urlEnabledSectionType) {
-            if ($urlEnabledSectionType->getElementType() == $elementType) {
-                return $urlEnabledSectionType;
-            }
-        }
-
-        return null;
     }
 }
