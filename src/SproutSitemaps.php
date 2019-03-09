@@ -10,6 +10,7 @@ namespace barrelstrength\sproutsitemaps;
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
+use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
 use barrelstrength\sproutsitemaps\models\Settings;
 use barrelstrength\sproutsitemaps\services\App;
 use barrelstrength\sproutsitemaps\web\twig\variables\SproutSeoVariable;
@@ -66,6 +67,7 @@ class SproutSitemaps extends Plugin
 
         SproutBaseHelper::registerModule();
         SproutBaseFieldsHelper::registerModule();
+        SproutBaseUrisHelper::registerModule();
 
         $this->setComponents([
             'app' => App::class
