@@ -18,6 +18,8 @@ use barrelstrength\sproutsitemaps\web\twig\variables\SproutSeoVariable;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
+use craft\events\RegisterUserPermissionsEvent;
+use craft\services\UserPermissions;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use yii\base\Event;
@@ -89,8 +91,7 @@ class SproutSitemaps extends Plugin
         });
 
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
-            $variable = $event->sender;
-            $variable->set('sproutSitemap', SproutSeoVariable::class);
+            $event->sender->set('sproutSitemap', SproutSeoVariable::class);
         });
     }
 
