@@ -167,9 +167,9 @@ class SproutSitemaps extends Plugin
         if ($this->getSettings()->enableDynamicSitemaps) {
             return [
                 'sitemap-<sitemapKey:.*>-<pageNumber:\d+>.xml' =>
-                    'sprout-sitemaps/xml-sitemap/render-xml-sitemap',
+                    'sprout-base-sitemaps/xml-sitemap/render-xml-sitemap',
                 'sitemap-?<sitemapKey:.*>.xml' =>
-                    'sprout-sitemaps/xml-sitemap/render-xml-sitemap',
+                    'sprout-base-sitemaps/xml-sitemap/render-xml-sitemap',
             ];
         }
 
