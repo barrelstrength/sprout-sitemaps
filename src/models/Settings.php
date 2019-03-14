@@ -7,16 +7,13 @@
 
 namespace barrelstrength\sproutsitemaps\models;
 
-
-use barrelstrength\sproutbase\base\SproutSettingsInterface;
 use craft\base\Model;
-use Craft;
 
 /**
  *
  * @property array $settingsNavItems
  */
-class Settings extends Model implements SproutSettingsInterface
+class Settings extends Model
 {
     /**
      * @var string
@@ -52,25 +49,4 @@ class Settings extends Model implements SproutSettingsInterface
      * @var array
      */
     public $groupSettings = [];
-
-    /**
-     * @inheritdoc
-     */
-    public function getSettingsNavItems(): array
-    {
-        return [
-            'general' => [
-                'label' => Craft::t('sprout-sitemaps', 'General'),
-                'url' => 'sprout-sitemaps/settings/general',
-                'selected' => 'general',
-                'template' => 'sprout-sitemaps/settings/general'
-            ],
-            'sitemaps' => [
-                'label' => Craft::t('sprout-sitemaps', 'Sitemaps'),
-                'url' => 'sprout-sitemaps/settings/sitemaps',
-                'selected' => 'sitemaps',
-                'template' => 'sprout-sitemaps/settings/sitemaps'
-            ]
-        ];
-    }
 }

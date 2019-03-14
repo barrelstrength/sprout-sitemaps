@@ -10,6 +10,8 @@ namespace barrelstrength\sproutsitemaps;
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
+use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
+use barrelstrength\sproutbasesitemaps\web\twig\variables\SproutSitemapVariable;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
 use barrelstrength\sproutsitemaps\models\Settings;
 use barrelstrength\sproutsitemaps\services\App;
@@ -18,8 +20,6 @@ use barrelstrength\sproutsitemaps\web\twig\variables\SproutSeoVariable;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
-use craft\events\RegisterUserPermissionsEvent;
-use craft\services\UserPermissions;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use yii\base\Event;
@@ -35,13 +35,6 @@ class SproutSitemaps extends Plugin
     use BaseSproutTrait;
 
     /**
-     * Enable use of SproutSeo::$app-> in place of Craft::$app->
-     *
-     * @var \barrelstrength\sproutsitemaps\services\App
-     */
-    public static $app;
-
-    /**
      * Identify our plugin for BaseSproutTrait
      *
      * @var string
@@ -52,6 +45,11 @@ class SproutSitemaps extends Plugin
      * @var bool
      */
     public $hasCpSection = true;
+
+    /**
+     * @var bool
+     */
+    public $hasCpSettings = true;
 
     /**
      * @var string
@@ -69,13 +67,8 @@ class SproutSitemaps extends Plugin
 
         SproutBaseHelper::registerModule();
         SproutBaseFieldsHelper::registerModule();
+        SproutBaseSitemapsHelper::registerModule();
         SproutBaseUrisHelper::registerModule();
-
-        $this->setComponents([
-            'app' => App::class
-        ]);
-
-        self::$app = $this->get('app');
 
         Craft::setAlias('@sproutsitemaps', $this->getBasePath());
 
@@ -91,7 +84,7 @@ class SproutSitemaps extends Plugin
         });
 
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
-            $event->sender->set('sproutSitemap', SproutSeoVariable::class);
+            $event->sender->set('sproutSitemap', SproutSitemapVariable::class);
         });
     }
 
@@ -104,57 +97,50 @@ class SproutSitemaps extends Plugin
             $parent['label'] = $this->getSettings()->pluginNameOverride;
         }
 
-        return array_merge($parent, [
-            'subnav' => [
-                'sitemaps' => [
-                    'label' => Craft::t('sprout-sitemaps', 'Sitemaps'),
-                    'url' => 'sprout-sitemaps/sitemaps'
-                ],
-                'settings' => [
-                    'label' => Craft::t('sprout-sitemaps', 'Settings'),
-                    'url' => 'sprout-sitemaps/settings'
-                ],
-            ]
-        ]);
+        return $parent;
     }
 
     /**
      * @return Settings
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): Settings
     {
         return new Settings();
     }
 
     /**
+     * @return string|null
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\Exception
+     */
+    protected function settingsHtml()
+    {
+        return \Craft::$app->getView()->renderTemplate('sprout-sitemaps/settings', [
+            'settings' => $this->getSettings()
+        ]);
+    }
+
+    /**
      * @return array
      */
-    private function getCpUrlRules()
+    private function getCpUrlRules(): array
     {
         return [
-            'sprout-sitemaps' => [
-                'template' => 'sprout-sitemaps/index'
-            ],
+            'sprout-sitemaps' =>
+                'sprout-base-sitemaps/sitemaps/sitemap-index-template',
 
             // Sitemaps
             'sprout-sitemaps/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
-                'sprout-sitemaps/sitemaps/sitemap-edit-template',
+                'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
 
             'sprout-sitemaps/sitemaps/new/<siteHandle:.*>' =>
-                'sprout-sitemaps/sitemaps/sitemap-edit-template',
+                'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
 
             'sprout-sitemaps/sitemaps/<siteHandle:.*>' =>
-                'sprout-sitemaps/sitemaps/sitemap-index-template',
+                'sprout-base-sitemaps/sitemaps/sitemap-index-template',
 
             'sprout-sitemaps/sitemaps' =>
-                'sprout-sitemaps/sitemaps/sitemap-index-template',
-
-            // Settings
-            'sprout-sitemaps/settings/<settingsSectionHandle:.*>' =>
-                'sprout/settings/edit-settings',
-
-            'sprout-sitemaps/settings' =>
-                'sprout/settings/edit-settings',
+                'sprout-base-sitemaps/sitemaps/sitemap-index-template',
         ];
     }
 
@@ -176,7 +162,7 @@ class SproutSitemaps extends Plugin
      *
      * @return array
      */
-    private function getSiteUrlRules()
+    private function getSiteUrlRules(): array
     {
         if ($this->getSettings()->enableDynamicSitemaps) {
             return [
