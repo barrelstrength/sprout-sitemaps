@@ -129,13 +129,10 @@ class SproutSitemaps extends Plugin
             // Sitemaps
             'sprout-sitemaps/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-
             'sprout-sitemaps/sitemaps/new/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-
             'sprout-sitemaps/sitemaps/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-
             'sprout-sitemaps/sitemaps' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
         ];
@@ -171,5 +168,19 @@ class SproutSitemaps extends Plugin
         }
 
         return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserPermissions(): array
+    {
+        return [
+            // We need this permission on top of the accessplugin- permission
+            // so that we can support the matching permission in Sprout SEO
+            'sproutSitemaps-editSitemaps' => [
+                'label' => Craft::t('sprout-sitemaps', 'Edit Sitemaps')
+            ],
+        ];
     }
 }
