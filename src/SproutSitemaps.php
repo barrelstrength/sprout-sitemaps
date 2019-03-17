@@ -72,9 +72,6 @@ class SproutSitemaps extends Plugin
 
         Craft::setAlias('@sproutsitemaps', $this->getBasePath());
 
-        /** @noinspection CascadingDirnameCallsInspection */
-        Craft::setAlias('@sproutsitemapslib', dirname(__DIR__, 2).'/sprout-sitemaps/lib');
-
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
             $event->rules = array_merge($event->rules, $this->getCpUrlRules());
         });
