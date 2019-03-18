@@ -14,9 +14,6 @@ use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
 use barrelstrength\sproutbasesitemaps\web\twig\variables\SproutSitemapVariable;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
 use barrelstrength\sproutsitemaps\models\Settings;
-use barrelstrength\sproutsitemaps\services\App;
-use barrelstrength\sproutsitemaps\web\twig\variables\SproutSeoVariable;
-
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;

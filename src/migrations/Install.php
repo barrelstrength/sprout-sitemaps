@@ -24,9 +24,8 @@ class Install extends Migration
      * @return bool
      * @throws \Throwable
      * @throws \craft\errors\SiteNotFoundException
-     * @throws \craft\errors\StructureNotFoundException
      */
-    public function safeUp()
+    public function safeUp(): bool
     {
         $this->createTables();
         $this->insertDefaultSettings();
@@ -73,7 +72,7 @@ class Install extends Migration
 
     protected function createIndexes()
     {
-        $this->createIndex(null, '{{%sproutseo_sitemaps}}', ['siteId'], false);
+        $this->createIndex(null, '{{%sproutseo_sitemaps}}', ['siteId']);
     }
 
     protected function addForeignKeys()
