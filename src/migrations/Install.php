@@ -50,7 +50,7 @@ class Install extends Migration
     {
         $table = '{{%sproutseo_sitemaps}}';
 
-        if (!$this->db->tableExists($table)){
+        if (!$this->db->tableExists($table)) {
             $this->createTable($table, [
                 'id' => $this->primaryKey(),
                 'siteId' => $this->integer()->notNull(),
@@ -78,7 +78,7 @@ class Install extends Migration
 
     protected function addForeignKeys()
     {
-       $this->addForeignKey(null, '{{%sproutseo_sitemaps}}', ['siteId'], '{{%sites}}', ['id'], 'CASCADE', 'CASCADE');
+        $this->addForeignKey(null, '{{%sproutseo_sitemaps}}', ['siteId'], '{{%sites}}', ['id'], 'CASCADE', 'CASCADE');
     }
 
     /**
@@ -98,6 +98,6 @@ class Install extends Migration
         // Add our default plugin settings
         $pluginHandle = 'sprout-sitemaps';
         $projectConfig = Craft::$app->getProjectConfig();
-        $projectConfig->set(Plugins::CONFIG_PLUGINS_KEY . '.' . $pluginHandle . '.settings', $settings->toArray());
+        $projectConfig->set(Plugins::CONFIG_PLUGINS_KEY.'.'.$pluginHandle.'.settings', $settings->toArray());
     }
 }
