@@ -28,6 +28,7 @@ use yii\base\Event;
  *
  * @property mixed $cpNavItem
  * @property array $cpUrlRules
+ * @property array $userPermissions
  * @property array $siteUrlRules
  */
 class SproutSitemaps extends Plugin
@@ -58,8 +59,6 @@ class SproutSitemaps extends Plugin
 
     /**
      * @inheritdoc
-     *
-     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
@@ -123,9 +122,6 @@ class SproutSitemaps extends Plugin
     private function getCpUrlRules(): array
     {
         return [
-            'sprout-sitemaps' =>
-                'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-
             // Sitemaps
             'sprout-sitemaps/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
@@ -135,6 +131,9 @@ class SproutSitemaps extends Plugin
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
             'sprout-sitemaps/sitemaps' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
+            'sprout-sitemaps' => [
+                'template' => 'sprout-base-sitemaps/index',
+            ]
         ];
     }
 
