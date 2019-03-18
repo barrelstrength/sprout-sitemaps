@@ -8,6 +8,7 @@
 namespace barrelstrength\sproutsitemaps\models;
 
 use craft\base\Model;
+use Craft;
 
 /**
  *
@@ -49,6 +50,27 @@ class Settings extends Model
      * @var array
      */
     public $groupSettings = [];
+
+    /**
+     * @inheritdoc
+     */
+    public function getSettingsNavItems(): array
+    {
+        return [
+            'general' => [
+                'label' => Craft::t('sprout-base-sitemaps', 'General'),
+                'url' => 'sprout-base-sitemaps/settings/general',
+                'selected' => 'general',
+                'template' => 'sprout-base-sitemaps/settings/general'
+            ],
+            'sitemaps' => [
+                'label' => Craft::t('sprout-base-sitemaps', 'Sitemaps'),
+                'url' => 'sprout-base-sitemaps/settings/sitemaps',
+                'selected' => 'sitemaps',
+                'template' => 'sprout-base-sitemaps/settings/sitemaps'
+            ]
+        ];
+    }
 
     /**
      * Shared permissions they may be prefixed by another plugin. Before checking
