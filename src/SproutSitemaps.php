@@ -81,10 +81,6 @@ class SproutSitemaps extends Plugin
         Event::on(UserPermissions::class, UserPermissions::EVENT_REGISTER_PERMISSIONS, function(RegisterUserPermissionsEvent $event) {
             $event->permissions['Sprout Sitemaps'] = $this->getUserPermissions();
         });
-
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
-            $event->sender->set('sproutSitemap', SproutSitemapVariable::class);
-        });
     }
 
     public function getCpNavItem()
@@ -126,13 +122,13 @@ class SproutSitemaps extends Plugin
     {
         return [
             // Sitemaps
-            'sprout-sitemaps/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            'sprout-sitemaps/sitemaps/new/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/new/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            'sprout-sitemaps/sitemaps/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-            'sprout-sitemaps/sitemaps' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
             'sprout-sitemaps' => [
                 'template' => 'sprout-base-sitemaps/index',
