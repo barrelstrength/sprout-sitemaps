@@ -11,15 +11,13 @@ use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
-use barrelstrength\sproutbasesitemaps\web\twig\variables\SproutSitemapVariable;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
-use barrelstrength\sproutsitemaps\models\Settings;
+use barrelstrength\sproutbasesitemaps\models\Settings;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\RegisterUserPermissionsEvent;
 use craft\services\UserPermissions;
-use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use yii\base\Event;
 
