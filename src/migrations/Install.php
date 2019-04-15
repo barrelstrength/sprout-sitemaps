@@ -10,7 +10,7 @@ namespace barrelstrength\sproutsitemaps\migrations;
 use Craft;
 
 use craft\db\Migration;
-use barrelstrength\sproutsitemaps\models\Settings;
+use barrelstrength\sproutbasesitemaps\models\Settings;
 use craft\services\Plugins;
 
 class Install extends Migration

@@ -12,13 +12,13 @@ use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
-use barrelstrength\sproutbasesitemaps\web\twig\variables\SproutSitemapVariable;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
-use barrelstrength\sproutsitemaps\models\Settings;
+use barrelstrength\sproutbasesitemaps\models\Settings;
 use Craft;
 use craft\base\Plugin;
 use craft\events\RegisterUrlRulesEvent;
-use craft\web\twig\variables\CraftVariable;
+use craft\events\RegisterUserPermissionsEvent;
+use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
 
@@ -77,8 +77,8 @@ class SproutSitemaps extends Plugin
             $event->rules = array_merge($event->rules, $this->getSiteUrlRules());
         });
 
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
-            $event->sender->set('sproutSitemap', SproutSitemapVariable::class);
+        Event::on(UserPermissions::class, UserPermissions::EVENT_REGISTER_PERMISSIONS, function(RegisterUserPermissionsEvent $event) {
+            $event->permissions['Sprout Sitemaps'] = $this->getUserPermissions();
         });
     }
 
@@ -121,13 +121,13 @@ class SproutSitemaps extends Plugin
     {
         return [
             // Sitemaps
-            'sprout-sitemaps/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            'sprout-sitemaps/sitemaps/new/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/new/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            'sprout-sitemaps/sitemaps/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-            'sprout-sitemaps/sitemaps' =>
+            '<pluginHandle:sprout-sitemaps>/sitemaps' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
             'sprout-sitemaps' => [
                 'template' => 'sprout-base-sitemaps/index',
