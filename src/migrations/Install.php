@@ -7,11 +7,9 @@
 
 namespace barrelstrength\sproutsitemaps\migrations;
 
-use Craft;
+use barrelstrength\sproutbasesitemaps\migrations\Install as SproutBaseSitemapsInstall;
 
 use craft\db\Migration;
-use barrelstrength\sproutbasesitemaps\models\Settings;
-use craft\services\Plugins;
 
 class Install extends Migration
 {
@@ -27,76 +25,11 @@ class Install extends Migration
      */
     public function safeUp(): bool
     {
-        $this->createTables();
-        $this->insertDefaultSettings();
+        $migration = new SproutBaseSitemapsInstall();
+        ob_start();
+        $migration->safeUp();
+        ob_end_clean();
 
         return true;
-    }
-
-    /**
-     * @return bool|void
-     * @throws \Throwable
-     */
-    public function safeDown()
-    {
-        $this->dropTable('{{%sproutseo_sitemaps}}');
-    }
-
-    // Protected Methods
-    // =========================================================================
-
-    protected function createTables()
-    {
-        $table = '{{%sproutseo_sitemaps}}';
-
-        if (!$this->db->tableExists($table)) {
-            $this->createTable($table, [
-                'id' => $this->primaryKey(),
-                'siteId' => $this->integer()->notNull(),
-                'uniqueKey' => $this->string(),
-                'urlEnabledSectionId' => $this->integer(),
-                'enabled' => $this->boolean()->defaultValue(false),
-                'type' => $this->string(),
-                'uri' => $this->string(),
-                'priority' => $this->decimal(11, 1),
-                'changeFrequency' => $this->string(),
-                'dateCreated' => $this->dateTime()->notNull(),
-                'dateUpdated' => $this->dateTime()->notNull(),
-                'uid' => $this->uid(),
-            ]);
-
-            $this->createIndexes();
-            $this->addForeignKeys();
-        }
-    }
-
-    protected function createIndexes()
-    {
-        $this->createIndex(null, '{{%sproutseo_sitemaps}}', ['siteId']);
-    }
-
-    protected function addForeignKeys()
-    {
-        $this->addForeignKey(null, '{{%sproutseo_sitemaps}}', ['siteId'], '{{%sites}}', ['id'], 'CASCADE', 'CASCADE');
-    }
-
-    /**
-     * @throws \craft\errors\SiteNotFoundException
-     * @throws \yii\base\ErrorException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\NotSupportedException
-     * @throws \yii\web\ServerErrorHttpException
-     */
-    protected function insertDefaultSettings()
-    {
-        $settings = new Settings();
-        // default site id for sections
-        $site = Craft::$app->getSites()->getPrimarySite();
-        $settings->siteSettings[$site->id] = $site->id;
-
-        // Add our default plugin settings
-        $pluginHandle = 'sprout-sitemaps';
-        $projectConfig = Craft::$app->getProjectConfig();
-        $projectConfig->set(Plugins::CONFIG_PLUGINS_KEY.'.'.$pluginHandle.'.settings', $settings->toArray());
     }
 }
