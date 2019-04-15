@@ -10,6 +10,7 @@ namespace barrelstrength\sproutsitemaps;
 use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
+use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
 use barrelstrength\sproutbasesitemaps\web\twig\variables\SproutSitemapVariable;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
@@ -154,7 +155,8 @@ class SproutSitemaps extends Plugin
      */
     private function getSiteUrlRules(): array
     {
-        if ($this->getSettings()->enableDynamicSitemaps) {
+        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
+        if ($settings->enableDynamicSitemaps) {
             return [
                 'sitemap-<sitemapKey:.*>-<pageNumber:\d+>.xml' =>
                     'sprout-base-sitemaps/xml-sitemap/render-xml-sitemap',
