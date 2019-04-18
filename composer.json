@@ -19,9 +19,9 @@
   ],
   "support": {
     "email": "sprout@barrelstrengthdesign.com",
-    "issues": "https://github.com/barrelstrength/sprout-seo/issues?state=open",
-    "source": "https://github.com/barrelstrength/sprout-seo",
-    "docs": "https://sprout.barrelstrengthdesign.com/craft-plugins/seo/docs"
+    "issues": "https://github.com/barrelstrength/craft-sprout-sitemaps/issues?state=open",
+    "source": "https://github.com/barrelstrength/craft-sprout-sitemaps",
+    "docs": "https://sprout.barrelstrengthdesign.com/docs/sitemaps"
   },
   "require": {
     "craftcms/cms": "^3.1.0",
@@ -39,9 +39,7 @@
     "handle": "sprout-sitemaps",
     "developer": "Barrel Strength",
     "developerUrl": "https://barrelstrengthdesign.com",
-    "documentationUrl": "https://sprout.barrelstrengthdesign.com/craft-plugins/sitemap",
-    "changelogUrl": "https://raw.githubusercontent.com/BarrelStrength/sprout-sitemapss/master/CHANGELOG.md",
-    "downloadUrl": "https://github.com/BarrelStrength/sprout-sitemaps/archive/master.zip",
+    "documentationUrl": "https://sprout.barrelstrengthdesign.com/docs/sitemaps",
     "class": "barrelstrength\\sproutsitemaps\\SproutSitemaps"
   }
 }
