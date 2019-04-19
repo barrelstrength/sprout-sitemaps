@@ -66,7 +66,6 @@ class SproutSitemaps extends Plugin
         parent::init();
 
         SproutBaseHelper::registerModule();
-        SproutBaseFieldsHelper::registerModule();
         SproutBaseSitemapsHelper::registerModule();
         SproutBaseUrisHelper::registerModule();
 
