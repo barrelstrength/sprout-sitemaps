@@ -155,7 +155,7 @@ class SproutSitemaps extends Plugin
      */
     private function getSiteUrlRules(): array
     {
-        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
+        $settings = $this->getSettings();
         if ($settings->enableDynamicSitemaps) {
             return [
                 'sitemap-<sitemapKey:.*>-<pageNumber:\d+>.xml' =>
@@ -180,5 +180,15 @@ class SproutSitemaps extends Plugin
                 'label' => Craft::t('sprout-sitemaps', 'Edit Sitemaps')
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSettings()
+    {
+        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
+
+        return $settings;
     }
 }
