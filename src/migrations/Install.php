@@ -8,7 +8,7 @@
 namespace barrelstrength\sproutsitemaps\migrations;
 
 use barrelstrength\sproutbasesitemaps\migrations\Install as SproutBaseSitemapsInstall;
-
+use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
 use craft\db\Migration;
 
 class Install extends Migration
@@ -25,6 +25,11 @@ class Install extends Migration
      */
     public function safeUp(): bool
     {
+        $migration = new SproutBaseInstall();
+        ob_start();
+        $migration->safeUp();
+        ob_end_clean();
+
         $migration = new SproutBaseSitemapsInstall();
         ob_start();
         $migration->safeUp();
