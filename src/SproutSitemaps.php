@@ -8,6 +8,7 @@
 namespace barrelstrength\sproutsitemaps;
 
 use barrelstrength\sproutbase\base\BaseSproutTrait;
+use barrelstrength\sproutbase\migrations\Install;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
@@ -16,11 +17,13 @@ use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
 use barrelstrength\sproutbasesitemaps\models\Settings;
 use Craft;
 use craft\base\Plugin;
+use craft\db\Query;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\RegisterUserPermissionsEvent;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
+use yii\db\Migration;
 
 /**
  *
@@ -86,9 +89,35 @@ class SproutSitemaps extends Plugin
     {
         $parent = parent::getCpNavItem();
 
+        // Query the db directly because the SproutBaseRedirects Yii module may not yet be available
+        $pluginSettings = (new Query())
+            ->select('settings')
+            ->from('{{%sproutbase_settings}}')
+            ->where([
+                'model' => Settings::class
+            ])
+            ->scalar();
+
+        $settings = json_decode($pluginSettings, true);
+
         // Allow user to override plugin name in sidebar
-        if ($this->getSettings()->pluginNameOverride) {
-            $parent['label'] = $this->getSettings()->pluginNameOverride;
+        if (isset($settings['pluginNameOverride']) && $settings['pluginNameOverride']) {
+            $parent['label'] = $settings['pluginNameOverride'];
+        }
+
+
+        if (Craft::$app->getUser()->checkPermission('sproutSitemaps-editSitemaps')) {
+            $parent['subnav']['sitemaps'] = [
+                'label' => Craft::t('sprout-sitemaps', 'Sitemaps'),
+                'url' => 'sprout-sitemaps/sitemaps'
+            ];
+        }
+
+        if (Craft::$app->getUser()->getIsAdmin()) {
+            $parent['subnav']['settings'] = [
+                'label' => Craft::t('sprout-sitemaps', 'Settings'),
+                'url' => 'sprout-sitemaps/settings'
+            ];
         }
 
         return $parent;
@@ -101,6 +130,16 @@ class SproutSitemaps extends Plugin
     {
         return new Settings();
     }
+
+    /**
+     * @inheritdoc
+     */
+//    public function getSettings()
+//    {
+//        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
+//
+//        return $settings;
+//    }
 
     /**
      * @return string|null
@@ -129,8 +168,19 @@ class SproutSitemaps extends Plugin
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
             '<pluginHandle:sprout-sitemaps>/sitemaps' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-            'sprout-sitemaps' => [
-                'template' => 'sprout-base-sitemaps/index',
+
+            // Settings
+            'sprout-sitemaps/settings/<settingsSectionHandle:.*>' => [
+                'route' => 'sprout/settings/edit-settings',
+                'params' => [
+                    'sproutBaseSettingsType' => Settings::class
+                ]
+            ],
+            'sprout-sitemaps/settings' => [
+                'route' => 'sprout/settings/edit-settings',
+                'params' => [
+                    'sproutBaseSettingsType' => Settings::class
+                ]
             ]
         ];
     }
@@ -180,15 +230,5 @@ class SproutSitemaps extends Plugin
                 'label' => Craft::t('sprout-sitemaps', 'Edit Sitemaps')
             ],
         ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSettings()
-    {
-        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
-
-        return $settings;
     }
 }
