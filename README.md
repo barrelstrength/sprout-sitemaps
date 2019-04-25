@@ -4,7 +4,7 @@ Easy to use Sitemap Manager with Craft Commerce and Multi-Site support.
 
 ## Documentation
 
-See the [Sprout Website](https://sprout.barrelstrengthdesign.com/docs/sitemaps) for documentation, guides, and additional resources. 
+See the [Sprout Website](https://sprout.barrelstrengthdesign.com/docs/sitemaps/) for documentation, guides, and additional resources. 
 
 ## Support
 
