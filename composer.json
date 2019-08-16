@@ -1,7 +1,7 @@
 {
   "name": "barrelstrength/sprout-sitemaps",
   "description": "Easy to use Sitemap manager with Craft Commerce and Multi-Site support",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "craft-plugin",
   "keywords": [
     "craft",
@@ -25,8 +25,8 @@
   },
   "require": {
     "craftcms/cms": "^3.1.0",
-    "barrelstrength/sprout-base": "^5.0.0",
-    "barrelstrength/sprout-base-sitemaps": "^1.0.9",
+    "barrelstrength/sprout-base": "^5.0.7",
+    "barrelstrength/sprout-base-sitemaps": "^1.1.0",
     "barrelstrength/sprout-base-uris": "^1.0.4"
   },
   "autoload": {
