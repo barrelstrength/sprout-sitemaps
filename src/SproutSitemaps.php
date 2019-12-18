@@ -20,10 +20,12 @@ use craft\base\Plugin;
 use craft\db\Query;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\RegisterUserPermissionsEvent;
+use craft\helpers\UrlHelper;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
 use yii\db\Migration;
+use yii\web\Response;
 
 /**
  *
@@ -141,15 +143,15 @@ class SproutSitemaps extends Plugin
 //    }
 
     /**
-     * @return string|null
-     * @throws \Twig_Error_Loader
-     * @throws \yii\base\Exception
+     * Redirect to Sprout Sitemaps settings
+     *
+     * @return \craft\web\Response|mixed|\yii\console\Response|Response
      */
-    protected function settingsHtml()
+    public function getSettingsResponse()
     {
-        return \Craft::$app->getView()->renderTemplate('sprout-sitemaps/settings', [
-            'settings' => $this->getSettings()
-        ]);
+        $url = UrlHelper::cpUrl('sprout-sitemaps/settings');
+
+        return Craft::$app->getResponse()->redirect($url);
     }
 
     /**
