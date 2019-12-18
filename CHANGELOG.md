@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.3 - 2019-12-18
+
+### Changed
+- Ensure Sitemap sections default to false when initially created
+- Improved error messages when XML Sitemaps are not enabled
+- Reorganized assets and build script to support ES6
+- Updated barrelstrength/sprout-base-sitemaps requirement v1.1.2
+
+### Fixed
+- Fixed bug when updating a Sitemap
+- Fixed broken link on plugin settings page ([#11])
+
+[#11]: https://github.com/barrelstrength/craft-sprout-sitemaps/issues/11
+
 ## 1.0.2 - 2019-09-23
 
 ### Changed
