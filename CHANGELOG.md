@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0 - 2020-02-05
+
+### Added
+- Added autofocus to Custom Pages URI input field
+
+### Changed
+- Updates models to use `defineRules()` method
+- Refactored in template javascript into assets files
+- Updated `barrelstrength/sprout-base-sitemaps` to v1.2.0
+- Updated `barrelstrength/sprout-base` to v5.1.0
+
 ## 1.0.4 - 2020-01-18
 
 ### Changed
