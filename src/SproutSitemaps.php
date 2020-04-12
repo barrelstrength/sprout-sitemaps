@@ -7,7 +7,6 @@
 
 namespace barrelstrength\sproutsitemaps;
 
-use barrelstrength\sproutbase\base\BaseSproutTrait;
 use barrelstrength\sproutbase\migrations\Install;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
@@ -36,14 +35,6 @@ use yii\web\Response;
  */
 class SproutSitemaps extends Plugin
 {
-    use BaseSproutTrait;
-
-    /**
-     * Identify our plugin for BaseSproutTrait
-     *
-     * @var string
-     */
-    public static $pluginHandle = 'sprout-sitemaps';
 
     /**
      * @var bool
