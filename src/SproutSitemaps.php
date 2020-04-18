@@ -10,6 +10,7 @@ namespace barrelstrength\sproutsitemaps;
 use barrelstrength\sproutbase\migrations\Install;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
+use barrelstrength\sproutbasesitemaps\models\Settings as SproutBaseSitemapSettings;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
@@ -115,23 +116,10 @@ class SproutSitemaps extends Plugin
         return $parent;
     }
 
-    /**
-     * @return Settings
-     */
-    protected function createSettingsModel(): Settings
+    public function getSettings()
     {
-        return new Settings();
+        return SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
     }
-
-    /**
-     * @inheritdoc
-     */
-//    public function getSettings()
-//    {
-//        $settings = SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
-//
-//        return $settings;
-//    }
 
     /**
      * Redirect to Sprout Sitemaps settings
@@ -143,6 +131,14 @@ class SproutSitemaps extends Plugin
         $url = UrlHelper::cpUrl('sprout-sitemaps/settings');
 
         return Craft::$app->getResponse()->redirect($url);
+    }
+
+    /**
+     * @return SproutBaseSitemapSettings
+     */
+    protected function createSettingsModel(): SproutBaseSitemapSettings
+    {
+        return new SproutBaseSitemapSettings();
     }
 
     /**
