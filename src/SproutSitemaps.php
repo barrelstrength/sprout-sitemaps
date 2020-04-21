@@ -141,6 +141,19 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
         return Craft::$app->getResponse()->redirect($url);
     }
 
+    /**
+     * @return array
+     */
+    public function getUserPermissions(): array
+    {
+        return [
+            // We need this permission on top of the accessplugin- permission
+            // so that we can support the matching permission in Sprout SEO
+            'sproutSitemaps-editSitemaps' => [
+                'label' => Craft::t('sprout-sitemaps', 'Edit Sitemaps')
+            ],
+        ];
+    }
 
     /**
      * @return array
@@ -225,19 +238,5 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
         }
 
         return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function getUserPermissions(): array
-    {
-        return [
-            // We need this permission on top of the accessplugin- permission
-            // so that we can support the matching permission in Sprout SEO
-            'sproutSitemaps-editSitemaps' => [
-                'label' => Craft::t('sprout-sitemaps', 'Edit Sitemaps')
-            ],
-        ];
     }
 }
