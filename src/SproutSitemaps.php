@@ -8,6 +8,8 @@
 namespace barrelstrength\sproutsitemaps;
 
 use barrelstrength\sproutbase\migrations\Install;
+use barrelstrength\sproutbase\base\SproutDependencyInterface;
+use barrelstrength\sproutbase\base\SproutDependencyTrait;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
 use barrelstrength\sproutbasesitemaps\models\Settings as SproutBaseSitemapSettings;
@@ -28,14 +30,20 @@ use yii\db\Migration;
 use yii\web\Response;
 
 /**
+ * Class SproutSitemaps
  *
- * @property mixed $cpNavItem
- * @property array $cpUrlRules
- * @property array $userPermissions
- * @property array $siteUrlRules
+ * @package barrelstrength\sproutsitemaps
+ *
+ * @property mixed                                                    $cpNavItem
+ * @property array                                                    $cpUrlRules
+ * @property \yii\console\Response|\craft\web\Response|Response|mixed $settingsResponse
+ * @property array                                                    $userPermissions
+ * @property array                                                    $sproutDependencies
+ * @property array                                                    $siteUrlRules
  */
-class SproutSitemaps extends Plugin
+class SproutSitemaps extends Plugin implements SproutDependencyInterface
 {
+    use SproutDependencyTrait;
 
     /**
      * @var bool
@@ -131,6 +139,19 @@ class SproutSitemaps extends Plugin
         $url = UrlHelper::cpUrl('sprout-sitemaps/settings');
 
         return Craft::$app->getResponse()->redirect($url);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getSproutDependencies(): array
+    {
+        return [
+            SproutDependencyInterface::SPROUT_BASE,
+            SproutDependencyInterface::SPROUT_BASE_SITEMAPS,
+            SproutDependencyInterface::SPROUT_BASE_URIS
+        ];
     }
 
     /**
