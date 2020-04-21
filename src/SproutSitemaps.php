@@ -7,16 +7,13 @@
 
 namespace barrelstrength\sproutsitemaps;
 
-use barrelstrength\sproutbase\migrations\Install;
 use barrelstrength\sproutbase\base\SproutDependencyInterface;
 use barrelstrength\sproutbase\base\SproutDependencyTrait;
+use barrelstrength\sproutbase\records\Settings as SproutBaseSettingsRecord;
 use barrelstrength\sproutbase\SproutBaseHelper;
-use barrelstrength\sproutbasefields\SproutBaseFieldsHelper;
 use barrelstrength\sproutbasesitemaps\models\Settings as SproutBaseSitemapSettings;
-use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
-use barrelstrength\sproutbasesitemaps\models\Settings;
 use Craft;
 use craft\base\Plugin;
 use craft\db\Query;
@@ -26,7 +23,6 @@ use craft\helpers\UrlHelper;
 use craft\services\UserPermissions;
 use craft\web\UrlManager;
 use yii\base\Event;
-use yii\db\Migration;
 use yii\web\Response;
 
 /**
@@ -93,7 +89,7 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
         // Query the db directly because the SproutBaseRedirects Yii module may not yet be available
         $pluginSettings = (new Query())
             ->select('settings')
-            ->from('{{%sprout_settings}}')
+            ->from(SproutBaseSettingsRecord::tableName())
             ->where([
                 'model' => Settings::class
             ])
@@ -122,11 +118,6 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
         }
 
         return $parent;
-    }
-
-    public function getSettings()
-    {
-        return SproutBaseSitemaps::$app->sitemaps->getSitemapsSettings();
     }
 
     /**
@@ -195,13 +186,13 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
             'sprout-sitemaps/settings/<settingsSectionHandle:.*>' => [
                 'route' => 'sprout/settings/edit-settings',
                 'params' => [
-                    'sproutBaseSettingsType' => Settings::class
+                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class
                 ]
             ],
             'sprout-sitemaps/settings' => [
                 'route' => 'sprout/settings/edit-settings',
                 'params' => [
-                    'sproutBaseSettingsType' => Settings::class
+                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class
                 ]
             ]
         ];
