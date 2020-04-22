@@ -16,10 +16,10 @@
 
 return [
     // The name to display in the control panel in place of the plugin name
-     'pluginNameOverride' => 'Sprout Sitemaps',
+    'pluginNameOverride' => 'Sprout Sitemaps',
 
     // Output a dynamic XML sitemap of all pages in your URL-Enabled Sections.
-     'enableDynamicSitemaps' => true,
+    'enableDynamicSitemaps' => true,
 
     // The number of items that display on each page of your sitemap.
     'totalElementsPerSitemap' => 500,

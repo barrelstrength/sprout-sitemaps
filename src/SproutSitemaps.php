@@ -91,7 +91,7 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
             ->select('settings')
             ->from(SproutBaseSettingsRecord::tableName())
             ->where([
-                'model' => Settings::class
+                'model' => SproutBaseSitemapSettings::class
             ])
             ->scalar();
 
@@ -101,7 +101,6 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
         if (isset($settings['pluginNameOverride']) && $settings['pluginNameOverride']) {
             $parent['label'] = $settings['pluginNameOverride'];
         }
-
 
         if (Craft::$app->getUser()->checkPermission('sproutSitemaps-editSitemaps')) {
             $parent['subnav']['sitemaps'] = [
