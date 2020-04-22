@@ -7,9 +7,13 @@
 
 namespace barrelstrength\sproutsitemaps\migrations;
 
-use barrelstrength\sproutbasesitemaps\migrations\Install as SproutBaseSitemapsInstall;
+use barrelstrength\sproutbase\base\SproutDependencyInterface;
 use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
+use barrelstrength\sproutbasesitemaps\migrations\Install as SproutBaseSitemapsInstall;
+use barrelstrength\sproutsitemaps\SproutSitemaps;
 use craft\db\Migration;
+use craft\errors\SiteNotFoundException;
+use Throwable;
 
 class Install extends Migration
 {
@@ -20,8 +24,8 @@ class Install extends Migration
 
     /**
      * @return bool
-     * @throws \Throwable
-     * @throws \craft\errors\SiteNotFoundException
+     * @throws Throwable
+     * @throws SiteNotFoundException
      */
     public function safeUp(): bool
     {
@@ -34,6 +38,37 @@ class Install extends Migration
         ob_start();
         $migration->safeUp();
         ob_end_clean();
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Throwable
+     */
+    public function safeDown(): bool
+    {
+        /** @var SproutSitemaps $plugin */
+        $plugin = SproutSitemaps::getInstance();
+
+        $sproutBaseSitemapsInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE_SITEMAPS);
+        $sproutBaseInUse = $plugin->dependencyInUse(SproutDependencyInterface::SPROUT_BASE);
+
+        if (!$sproutBaseSitemapsInUse) {
+            $migration = new SproutBaseSitemapsInstall();
+
+            ob_start();
+            $migration->safeDown();
+            ob_end_clean();
+        }
+
+        if (!$sproutBaseInUse) {
+            $migration = new SproutBaseInstall();
+
+            ob_start();
+            $migration->safeDown();
+            ob_end_clean();
+        }
 
         return true;
     }
