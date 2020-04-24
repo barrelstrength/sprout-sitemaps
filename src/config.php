@@ -27,6 +27,7 @@ return [
     // Generate a single, multilingual sitemap.xml file for each Site Group.
     'enableMultilingualSitemaps' => false,
 
-    // Add a section on the Sitemaps tab to manage Custom Pages that exist outside of any URL-Enabled Sections.
+    // Add a section on the Sitemaps tab to manage Custom Pages that exist
+    // outside of any URL-Enabled Sections.
     'enableCustomSections' => false
 ];
