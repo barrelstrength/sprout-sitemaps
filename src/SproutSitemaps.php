@@ -12,6 +12,7 @@ use barrelstrength\sproutbase\base\SproutDependencyTrait;
 use barrelstrength\sproutbase\records\Settings as SproutBaseSettingsRecord;
 use barrelstrength\sproutbase\SproutBaseHelper;
 use barrelstrength\sproutbasesitemaps\models\Settings as SproutBaseSitemapSettings;
+use barrelstrength\sproutbasesitemaps\SproutBaseSitemaps;
 use barrelstrength\sproutbasesitemaps\SproutBaseSitemapsHelper;
 use barrelstrength\sproutbaseuris\SproutBaseUrisHelper;
 use Craft;
@@ -172,26 +173,28 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
     {
         return [
             // Sitemaps
-            '<pluginHandle:sprout-sitemaps>/sitemaps/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/<pluginSection:sitemaps>/edit/<sitemapSectionId:\d+>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            '<pluginHandle:sprout-sitemaps>/sitemaps/new/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/<pluginSection:sitemaps>/new/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-edit-template',
-            '<pluginHandle:sprout-sitemaps>/sitemaps/<siteHandle:.*>' =>
+            '<pluginHandle:sprout-sitemaps>/<pluginSection:sitemaps>/<siteHandle:.*>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
-            '<pluginHandle:sprout-sitemaps>/sitemaps' =>
+            '<pluginHandle:sprout-sitemaps>/<pluginSection:sitemaps>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
 
             // Settings
             'sprout-sitemaps/settings/<settingsSectionHandle:.*>' => [
                 'route' => 'sprout/settings/edit-settings',
                 'params' => [
-                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class
+                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class,
+                    'pluginHandle' => $this->handle
                 ]
             ],
             'sprout-sitemaps/settings' => [
                 'route' => 'sprout/settings/edit-settings',
                 'params' => [
-                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class
+                    'sproutBaseSettingsType' => SproutBaseSitemapSettings::class,
+                    'pluginHandle' => $this->handle
                 ]
             ]
         ];
@@ -217,7 +220,8 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
      */
     private function getSiteUrlRules(): array
     {
-        $settings = $this->getSettings();
+        $settings = SproutBaseSitemaps::$app->settings->getSitemapsSettings();
+
         if ($settings->enableDynamicSitemaps) {
             return [
                 'sitemap-<sitemapKey:.*>-<pageNumber:\d+>.xml' =>
