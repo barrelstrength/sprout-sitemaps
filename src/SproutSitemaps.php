@@ -181,6 +181,12 @@ class SproutSitemaps extends Plugin implements SproutDependencyInterface
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
             '<pluginHandle:sprout-sitemaps>/<pluginSection:sitemaps>' =>
                 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
+            '<pluginHandle:sprout-sitemaps>' => [
+                'route' => 'sprout-base-sitemaps/sitemaps/sitemap-index-template',
+                'params' => [
+                    'pluginSection' => 'sitemaps'
+                ]
+            ],
 
             // Settings
             'sprout-sitemaps/settings/<settingsSectionHandle:.*>' => [
