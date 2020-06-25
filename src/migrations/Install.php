@@ -7,9 +7,7 @@
 
 namespace barrelstrength\sproutsitemaps\migrations;
 
-use barrelstrength\sproutbase\migrations\Install as SproutBaseInstall;
 use barrelstrength\sproutbase\SproutBase;
-use barrelstrength\sproutbase\app\sitemaps\migrations\Install as SproutBaseSitemapsInstall;
 use barrelstrength\sproutsitemaps\SproutSitemaps;
 use craft\db\Migration;
 use Throwable;
@@ -17,19 +15,12 @@ use Throwable;
 class Install extends Migration
 {
     /**
-     * @var string The database driver to use
-     */
-    public $driver;
-
-    /**
      * @return bool
      * @throws Throwable
      */
     public function safeUp(): bool
     {
         SproutBase::$app->config->runInstallMigrations(SproutSitemaps::getInstance());
-
-        return true;
     }
 
     /**
