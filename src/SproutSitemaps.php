@@ -37,7 +37,5 @@ class SproutSitemaps extends SproutBasePlugin
         parent::init();
 
         SproutBaseHelper::registerModule();
-
-        Craft::setAlias('@sproutsitemaps', $this->getBasePath());
     }
 }
