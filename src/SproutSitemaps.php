@@ -2,9 +2,10 @@
 
 namespace BarrelStrength\SproutSitemaps;
 
-use BarrelStrength\Sprout\core\db\InstallHelper;
+use BarrelStrength\Sprout\core\db\MigrationHelper;
 use BarrelStrength\Sprout\core\db\SproutPluginMigrationInterface;
 use BarrelStrength\Sprout\core\db\SproutPluginMigrator;
+use BarrelStrength\Sprout\core\editions\Edition;
 use BarrelStrength\Sprout\core\modules\Modules;
 use BarrelStrength\Sprout\sitemaps\SitemapsModule;
 use BarrelStrength\Sprout\uris\UrisModule;
@@ -19,7 +20,23 @@ use yii\base\InvalidConfigException;
 
 class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
 {
+    public const EDITION_LITE = 'lite';
+    public const EDITION_PRO = 'pro';
+
     public string $minVersionRequired = '1.3.0';
+
+    public string $schemaVersion = '0.0.1';
+
+    /**
+     * @inheritDoc
+     */
+    public static function editions(): array
+    {
+        return [
+            self::EDITION_LITE,
+            self::EDITION_PRO,
+        ];
+    }
 
     public static function getSchemaDependencies(): array
     {
@@ -37,8 +54,6 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
         return SproutPluginMigrator::make($this);
     }
 
-    public string $schemaVersion = '0.0.1';
-
     public function init(): void
     {
         parent::init();
@@ -46,12 +61,13 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
         Event::on(
             Modules::class,
             Modules::EVENT_REGISTER_SPROUT_AVAILABLE_MODULES,
-            function(RegisterComponentTypesEvent $event) {
+            static function(RegisterComponentTypesEvent $event) {
                 $event->types[] = SitemapsModule::class;
             }
         );
 
         $this->instantiateSproutModules();
+        $this->grantModuleEditions();
     }
 
     protected function instantiateSproutModules(): void
@@ -59,12 +75,19 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
         SitemapsModule::isEnabled() && SitemapsModule::getInstance();
     }
 
+    protected function grantModuleEditions(): void
+    {
+        if ($this->edition === self::EDITION_PRO) {
+            SitemapsModule::isEnabled() && SitemapsModule::getInstance()->grantEdition(Edition::PRO);
+        }
+    }
+
     /**
      * @throws MigrationException
      */
     protected function afterInstall(): void
     {
-        InstallHelper::runInstallMigrations($this);
+        MigrationHelper::runMigrations($this);
 
         if (Craft::$app->getRequest()->getIsConsoleRequest()) {
             return;
@@ -81,6 +104,6 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
      */
     protected function beforeUninstall(): void
     {
-        InstallHelper::runUninstallMigrations($this);
+        MigrationHelper::runUninstallMigrations($this);
     }
 }
