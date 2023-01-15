@@ -20,9 +20,6 @@ use yii\base\InvalidConfigException;
 
 class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
 {
-    public const EDITION_LITE = 'lite';
-    public const EDITION_PRO = 'pro';
-
     public string $minVersionRequired = '1.3.0';
 
     public string $schemaVersion = '0.0.1';
@@ -33,8 +30,8 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
     public static function editions(): array
     {
         return [
-            self::EDITION_LITE,
-            self::EDITION_PRO,
+            Edition::LITE,
+            Edition::PRO,
         ];
     }
 
@@ -77,7 +74,7 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
 
     protected function grantModuleEditions(): void
     {
-        if ($this->edition === self::EDITION_PRO) {
+        if ($this->edition === Edition::PRO) {
             SitemapsModule::isEnabled() && SitemapsModule::getInstance()->grantEdition(Edition::PRO);
         }
     }
