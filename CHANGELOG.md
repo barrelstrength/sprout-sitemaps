@@ -2,11 +2,8 @@
 
 ## 4.44.444 - UNRELEASED
 
-> **Note**
-> Sprout Sitemaps is now powered by the Sprout Framework.
-
 ### Updated
 
-- Requires `barrelstrength/sprout:v4.44.444`
+- Requires `barrelstrength/sprout:4.0.0`
 - See Sitemaps Module [release notes]([PERMALINK])
 
