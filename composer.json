@@ -4,7 +4,7 @@
     "version": "4.44.444",
     "license": "proprietary",
     "require": {
-        "barrelstrength/sprout": "^4.0.0",
+        "barrelstrength/sprout": "^4.1.3",
         "craftcms/cms": "^4.3.0"
     },
     "autoload": {
