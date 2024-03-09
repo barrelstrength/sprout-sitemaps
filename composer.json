@@ -1,10 +1,10 @@
 {
     "name": "barrelstrength/sprout-sitemaps",
     "type": "craft-plugin",
-    "version": "4.44.445",
+    "version": "4.45.0",
     "license": "proprietary",
     "require": {
-        "barrelstrength/sprout": "^4.1.4",
+        "barrelstrength/sprout": "^4.1.8",
         "craftcms/cms": "^4.3.0"
     },
     "autoload": {
