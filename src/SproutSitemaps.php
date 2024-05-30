@@ -18,9 +18,9 @@ use yii\base\Event;
 
 class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
 {
-    public string $minVersionRequired = '1.3.0';
+    public string $minVersionRequired = '4.45.3';
 
-    public string $schemaVersion = '4.45.0';
+    public string $schemaVersion = '5.0.0';
 
     public static function editions(): array
     {
