@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.0.2 - 2025-03-26
+
+- Requires `barrelstrength/sprout:5.0.6`
+- See Sprout Framework Module [release notes][#506core]
+
+[#506core]: https://github.com/barrelstrength/craft-sprout/blob/5.0.6/CHANGELOG/CHANGELOG-CORE.md
+
 ## 5.0.1 - 2025-03-08
 
 - Requires `barrelstrength/sprout:5.0.3`
