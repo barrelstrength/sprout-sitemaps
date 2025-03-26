@@ -8,7 +8,6 @@ use BarrelStrength\Sprout\core\db\SproutPluginMigrator;
 use BarrelStrength\Sprout\core\editions\Edition;
 use BarrelStrength\Sprout\core\modules\Modules;
 use BarrelStrength\Sprout\sitemaps\SitemapsModule;
-use BarrelStrength\Sprout\uris\UrisModule;
 use Craft;
 use craft\base\Plugin;
 use craft\db\MigrationManager;
@@ -34,7 +33,6 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
     {
         return [
             SitemapsModule::class,
-            UrisModule::class,
         ];
     }
 
