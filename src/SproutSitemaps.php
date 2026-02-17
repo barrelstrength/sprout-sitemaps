@@ -21,6 +21,8 @@ class SproutSitemaps extends Plugin implements SproutPluginMigrationInterface
 
     public string $schemaVersion = '5.0.0';
 
+    public bool $hasCpSection = true;
+
     public static function editions(): array
     {
         return [
